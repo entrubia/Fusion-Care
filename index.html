@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Fusion Care | فيوجن كير للعناية المتكاملة بالسيارات</title>
+    
+    <!-- Google Fonts: Noto Kufi Arabic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        kufi: ['"Noto Kufi Arabic"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                            950: '#0b1329',
+                        },
+                        darkbg: '#070a12',
+                        cardbg: '#0f172a',
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        glow: {
+                            '0%': { boxShadow: '0 0 15px rgba(37, 99, 235, 0.2)' },
+                            '100%': { boxShadow: '0 0 30px rgba(37, 99, 235, 0.6)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Noto Kufi Arabic', sans-serif;
+            background-color: #070a12;
+            color: #f1f5f9;
+            -webkit-tap-highlight-color: transparent;
+            overflow-x: hidden;
+        }
+
+        /* Medium/Substack Style Typography & Margin feel */
+        .substack-container {
+            max-width: 720px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 1.25rem;
+            padding-right: 1.25rem;
+        }
+
+        .substack-wide {
+            max-width: 960px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Stack Card Effects */
+        .stack-card {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .stack-card.active {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            z-index: 30;
+        }
+
+        .stack-card.prev {
+            transform: translateY(-16px) scale(0.96);
+            opacity: 0.7;
+            z-index: 20;
+            pointer-events: none;
+        }
+
+        .stack-card.next {
+            transform: translateY(16px) scale(0.96);
+            opacity: 0.5;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        /* Glassmorphism custom styling */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-button {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.9), rgba(29, 78, 216, 0.9));
+            box-shadow: 0 8px 25px -5px rgba(37, 99, 235, 0.5);
+        }
+
+        .glass-button:active {
+            transform: scale(0.98);
+        }
+
+        /* Engine sound visualizer line */
+        .sound-wave-bar {
+            animation: soundWave 0.8s ease-in-out infinite alternate;
+        }
+
+        @keyframes soundWave {
+            0% { height: 6px; }
+            100% { height: 28px; }
+        }
+    </style>
+</head>
+<body class="bg-darkbg text-slate-100 min-h-screen selection:bg-brand-600 selection:text-white">
+
+    <!-- Intro Sound & Splash Modal (Optimized for iOS Audio Context) -->
+    <div id="intro-overlay" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-darkbg p-6 text-center transition-all duration-700">
+        <!-- Ambient background lighting -->
+        <div class="absolute inset-0 bg-gradient-to-tr from-brand-950/40 via-transparent to-blue-900/20 pointer-events-none"></div>
+        <div class="absolute w-72 h-72 rounded-full bg-brand-600/10 filter blur-3xl animate-pulse-slow"></div>
+
+        <div class="relative z-10 max-w-sm w-full space-y-8">
+            <!-- Logo Brand -->
+            <div class="space-y-3">
+                <div class="w-28 h-28 mx-auto relative flex items-center justify-center">
+                    <div class="absolute inset-0 bg-brand-500/20 rounded-full filter blur-xl animate-pulse-slow"></div>
+                    <!-- Custom Metallic Shield & Car Logo matching user image -->
+                    <svg class="w-full h-full drop-shadow-[0_10px_25px_rgba(37,99,235,0.45)]" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="shieldBorderGrad" x1="20" y1="20" x2="180" y2="180" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#93c5fd" />
+                                <stop offset="30%" stop-color="#2563eb" />
+                                <stop offset="70%" stop-color="#1e3a8a" />
+                                <stop offset="100%" stop-color="#0284c7" />
+                            </linearGradient>
+                            <linearGradient id="shieldBodyGrad" x1="100" y1="20" x2="100" y2="180" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#1e40af" />
+                                <stop offset="40%" stop-color="#0f2b61" />
+                                <stop offset="80%" stop-color="#07132e" />
+                                <stop offset="100%" stop-color="#030712" />
+                            </linearGradient>
+                            <linearGradient id="carBodyGrad" x1="20" y1="90" x2="180" y2="120" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#475569" />
+                                <stop offset="25%" stop-color="#94a3b8" />
+                                <stop offset="50%" stop-color="#f8fafc" />
+                                <stop offset="75%" stop-color="#64748b" />
+                                <stop offset="100%" stop-color="#1e293b" />
+                            </linearGradient>
+                            <linearGradient id="chromeHighlight" x1="20" y1="80" x2="180" y2="80" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#e2e8f0" />
+                                <stop offset="50%" stop-color="#ffffff" />
+                                <stop offset="100%" stop-color="#94a3b8" />
+                            </linearGradient>
+                            <filter id="glowShadow" x="-20%" y="-20%" width="140%" height="140%">
+                                <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#0284c7" flood-opacity="0.5"/>
+                            </filter>
+                        </defs>
+
+                        <!-- SHIELD BORDER & CREST TOP -->
+                        <path d="M 40 40 L 40 25 L 75 25 L 100 48 L 125 25 L 160 25 L 160 40 L 160 100 C 160 145, 100 180, 100 180 C 100 180, 40 145, 40 100 Z" fill="url(#shieldBorderGrad)" stroke="#60a5fa" stroke-width="1.5" />
+                        <!-- SHIELD BODY -->
+                        <path d="M 48 44 L 48 33 L 73 33 L 100 56 L 127 33 L 152 33 L 152 44 L 152 98 C 152 138, 100 170, 100 170 C 100 170, 48 138, 48 98 Z" fill="url(#shieldBodyGrad)" stroke="#1d4ed8" stroke-width="1" />
+                        <!-- CHEVRON TOP HIGHLIGHT -->
+                        <path d="M 58 48 L 73 48 L 100 68 L 127 48 L 142 48" fill="none" stroke="url(#chromeHighlight)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+
+                        <!-- METALLIC CAR OVERLAY SILHOUETTE -->
+                        <g filter="url(#glowShadow)">
+                            <path d="M 15 110 C 25 110, 35 108, 48 106 C 58 104, 68 96, 78 88 C 88 80, 105 76, 122 81 C 135 85, 148 94, 160 100 C 172 104, 185 106, 192 109 C 195 110, 195 114, 190 116 C 180 120, 175 125, 172 126 C 168 127, 163 120, 153 120 C 143 120, 138 127, 132 127 L 72 127 C 66 127, 61 120, 51 120 C 41 120, 36 127, 30 126 C 22 124, 15 117, 12 113 C 10 111, 11 110, 15 110 Z" fill="url(#carBodyGrad)" stroke="url(#chromeHighlight)" stroke-width="1.5" />
+                            <path d="M 48 106 C 58 104, 68 96, 78 88 C 88 80, 105 76, 122 81 C 135 85, 148 94, 160 100" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
+                            <path d="M 78 89 C 88 83, 102 80, 118 84 C 126 86, 134 91, 140 96 L 80 96 Z" fill="#0f172a" opacity="0.8" stroke="#64748b" stroke-width="1" />
+                            <path d="M 36 127 C 39 120, 47 117, 53 120 C 56 122, 57 127, 57 127" fill="none" stroke="#94a3b8" stroke-width="2" />
+                            <path d="M 137 127 C 140 120, 148 117, 154 120 C 157 122, 158 127, 158 127" fill="none" stroke="#94a3b8" stroke-width="2" />
+                        </g>
+                    </svg>
+                </div>
+                <h1 class="text-3xl font-black tracking-tight text-white">Fusion Care</h1>
+                <p class="text-xs text-brand-400 uppercase tracking-widest font-semibold">Luxury Automotive Care</p>
+            </div>
+
+            <!-- Hook Message -->
+            <div class="bg-slate-900/80 border border-slate-800 p-5 rounded-2xl backdrop-blur-sm text-right space-y-2">
+                <p class="text-sm font-medium text-slate-300 leading-relaxed">
+                    مرحباً بك في التجربة التفاعلية لـ <span class="text-brand-400 font-bold">فيوجن كير</span>. انقر أدناه لتشغيل المحرك واستعراض حلول العناية الاحترافية.
+                </p>
+            </div>
+
+            <!-- Audio Engine Start Button -->
+            <button id="start-btn" onclick="startAppWithEngineSound()" class="w-full py-4 px-6 rounded-2xl glass-button text-white font-bold text-base flex items-center justify-center space-x-3 space-x-reverse group transition-all duration-300 hover:brightness-110 active:scale-95 shadow-xl shadow-brand-600/30">
+                <i class="fa-solid fa-power-off text-lg text-blue-200 group-hover:scale-110 transition-transform"></i>
+                <span>جاهز نروح أبعد؟</span>
+            </button>
+
+            <!-- Small note for iOS -->
+            <p class="text-[11px] text-slate-500 flex items-center justify-center gap-1">
+                <i class="fa-solid fa-volume-high text-slate-400"></i>
+                متوافق مع iPhone وجميع الأجهزة الذكية
+            </p>
+        </div>
+    </div>
+
+    <!-- Minimalist Medium/Substack Header -->
+    <header class="sticky top-0 z-40 w-full glass-panel border-b border-slate-800/80 backdrop-blur-md">
+        <div class="substack-wide px-4 h-16 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 p-1 flex items-center justify-center shadow-md shadow-brand-500/20 group-hover:scale-105 transition-transform">
+                    <svg class="w-full h-full" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M 40 40 L 40 25 L 75 25 L 100 48 L 125 25 L 160 25 L 160 40 L 160 100 C 160 145, 100 180, 100 180 C 100 180, 40 145, 40 100 Z" fill="#2563eb" stroke="#60a5fa" stroke-width="2" />
+                        <path d="M 48 44 L 48 33 L 73 33 L 100 56 L 127 33 L 152 33 L 152 44 L 152 98 C 152 138, 100 170, 100 170 C 100 170, 48 138, 48 98 Z" fill="#0b1329" />
+                        <path d="M 58 48 L 73 48 L 100 68 L 127 48 L 142 48" fill="none" stroke="#60a5fa" stroke-width="3" stroke-linecap="round" />
+                        <path d="M 15 110 C 25 110, 35 108, 48 106 C 58 104, 68 96, 78 88 C 88 80, 105 76, 122 81 C 135 85, 148 94, 160 100 C 172 104, 185 106, 192 109 L 172 126 L 30 126 Z" fill="#94a3b8" stroke="#ffffff" stroke-width="1.5" />
+                        <path d="M 48 106 C 58 104, 68 96, 78 88 C 88 80, 105 76, 122 81 C 135 85, 148 94, 160 100" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
+                    </svg>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-extrabold text-base tracking-tight text-slate-100 group-hover:text-brand-400 transition-colors">Fusion Care</span>
+                    <span class="text-[10px] text-slate-400 -mt-1">العناية بالسيارات</span>
+                </div>
+            </a>
+
+            <!-- Status Badge & Sound Replay -->
+            <div class="flex items-center gap-2">
+                <button onclick="playDeepEngineSound()" title="إعادة صوت المحرك" class="p-2 rounded-xl bg-slate-800/60 text-slate-400 hover:text-brand-400 hover:bg-slate-800 border border-slate-700/50 transition-all text-xs flex items-center gap-1.5">
+                    <i class="fa-solid fa-compact-disc animate-spin-slow"></i>
+                    <span class="hidden sm:inline">صوت المحرك</span>
+                </button>
+                <a href="#order-section" class="py-2 px-3.5 rounded-xl bg-brand-600/20 border border-brand-500/40 text-brand-300 font-semibold text-xs hover:bg-brand-600 hover:text-white transition-all">
+                    طلب خدمة
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Header - Substack Style Focus -->
+    <main class="py-10 md:py-16">
+        <section class="substack-container text-center space-y-6">
+            <!-- Tag & Micro Hook -->
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-950/80 border border-brand-800/60 text-brand-300 text-xs font-medium">
+                <span class="w-2 h-2 rounded-full bg-brand-400 animate-ping"></span>
+                مركز متخصص ومُعتمد للعناية الكاملة
+            </div>
+
+            <!-- Main Headline -->
+            <h1 class="text-3xl md:text-5xl font-black text-white leading-tight md:leading-tight tracking-tight">
+                حماية فائقة.. فخامة تدوم لسيارتك مع <span class="bg-gradient-to-r from-brand-400 via-blue-300 to-cyan-400 bg-clip-text text-transparent">فيوجن كير</span>
+            </h1>
+
+            <!-- Subheading Medium style -->
+            <p class="text-slate-400 text-sm md:text-base leading-relaxed max-w-xl mx-auto font-normal">
+                نقدم أحدث الحلول المتكاملة لحماية وتجديد المركبات بأعلى معايير الجودة العالمية، من أفلام PPF والحراري إلى التنجيد الاحترافي.
+            </p>
+
+            <!-- Sound visualizer highlight badge -->
+            <div id="sound-indicator" class="hidden items-center justify-center gap-1.5 py-2 px-4 rounded-xl bg-slate-900/90 border border-slate-800 text-xs text-brand-400 w-fit mx-auto">
+                <span class="text-slate-400">صوت الفخامة:</span>
+                <div class="flex items-center gap-0.5 h-4">
+                    <span class="w-1 bg-brand-500 rounded-full sound-wave-bar" style="animation-delay: 0.1s"></span>
+                    <span class="w-1 bg-brand-400 rounded-full sound-wave-bar" style="animation-delay: 0.3s"></span>
+                    <span class="w-1 bg-cyan-400 rounded-full sound-wave-bar" style="animation-delay: 0.2s"></span>
+                    <span class="w-1 bg-blue-600 rounded-full sound-wave-bar" style="animation-delay: 0.4s"></span>
+                </div>
+                <span class="text-slate-300 text-[11px] font-mono">V8 Twin Turbo Synth</span>
+            </div>
+        </section>
+
+        <!-- STACK CARD SECTION -->
+        <section class="substack-container mt-12">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-layer-group text-brand-500"></i>
+                        دليل الخدمات والخطوات المتراكمة
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-0.5">تصفح البطاقات للوصول المباشر لطلبك</p>
+                </div>
+                <!-- Controls for Stack -->
+                <div class="flex items-center gap-2">
+                    <button onclick="prevCard()" id="btn-prev-card" class="w-9 h-9 rounded-xl bg-slate-800 border border-slate-700 text-slate-300 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center transition-all" disabled>
+                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+                    <span id="card-step-indicator" class="text-xs font-bold text-brand-400 px-1">1 / 3</span>
+                    <button onclick="nextCard()" id="btn-next-card" class="w-9 h-9 rounded-xl bg-slate-800 border border-slate-700 text-slate-300 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center transition-all">
+                        <i class="fa-solid fa-chevron-left text-xs"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stack Cards Container -->
+            <div class="relative min-h-[480px] w-full">
+                
+                <!-- CARD 1: Hook & Vision -->
+                <div id="card-1" class="stack-card active absolute inset-0 w-full glass-panel rounded-3xl p-6 md:p-8 flex flex-col justify-between border border-brand-500/30 shadow-2xl shadow-brand-950/50">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="px-3 py-1 rounded-full bg-brand-500/20 text-brand-300 text-xs font-semibold">
+                                البطاقة 01 • الرؤية والضمان
+                            </span>
+                            <i class="fa-solid fa-gem text-xl text-brand-400"></i>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-extrabold text-white leading-snug">
+                            لماذا يختار أصحاب السيارات الفارهة Fusion Care؟
+                        </h3>
+                        <p class="text-slate-300 text-xs md:text-sm leading-relaxed">
+                            نمتلك دقة لا تهاود في تفاصيل طلاء ومقصورة سيارتك. نستخدم أحدث خامات النانو بوليمر وأفلام الحماية الذاتية المعالجة، مع كادر فني عالي الخبرة لضمان النتائج المثالية.
+                        </p>
+                        <div class="grid grid-cols-2 gap-3 pt-2">
+                            <div class="bg-slate-900/90 border border-slate-800 p-3 rounded-2xl">
+                                <div class="text-brand-400 font-bold text-lg">100%</div>
+                                <div class="text-[11px] text-slate-400">حماية من الخدوش والعوامل</div>
+                            </div>
+                            <div class="bg-slate-900/90 border border-slate-800 p-3 rounded-2xl">
+                                <div class="text-cyan-400 font-bold text-lg">ضمان معتمد</div>
+                                <div class="text-[11px] text-slate-400">على كل الأعمال والخدمات</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 border-t border-slate-800/80 flex items-center justify-between">
+                        <span class="text-xs text-slate-400">اسحب أو انقر للانتقال للخدمات</span>
+                        <button onclick="nextCard()" class="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs flex items-center gap-2 transition-all">
+                            <span>استعراض الخدمات</span>
+                            <i class="fa-solid fa-arrow-left text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- CARD 2: Services Overview -->
+                <div id="card-2" class="stack-card next absolute inset-0 w-full glass-panel rounded-3xl p-6 md:p-8 flex flex-col justify-between border border-slate-800 shadow-2xl">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 text-xs font-semibold">
+                                البطاقة 02 • خدماتنا المتكاملة
+                            </span>
+                            <i class="fa-solid fa-wrench text-xl text-cyan-400"></i>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-white">حلول احترافية شاملة تحت سقف واحد</h3>
+                        
+                        <div class="grid grid-cols-2 gap-2.5 text-xs text-slate-200">
+                            <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center gap-2">
+                                <i class="fa-solid fa-shield text-brand-400"></i>
+                                <span>أفلام حماية الطلاء (PPF)</span>
+                            </div>
+                            <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center gap-2">
+                                <i class="fa-solid fa-sun text-amber-400"></i>
+                                <span>العازل الحراري الفائق</span>
+                            </div>
+                            <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center gap-2">
+                                <i class="fa-solid fa-wand-magic-sparkles text-purple-400"></i>
+                                <span>النانو سيراميك الأصلي</span>
+                            </div>
+                            <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center gap-2">
+                                <i class="fa-solid fa-spray-can text-cyan-400"></i>
+                                <span>التلميع واستعادة اللمعان</span>
+                            </div>
+                            <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center gap-2">
+                                <i class="fa-solid fa-car-burst text-rose-400"></i>
+                                <span>أعمال البوية والرش الاحترافي</span>
+                            </div>
+                            <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center gap-2">
+                                <i class="fa-solid fa-couch text-emerald-400"></i>
+                                <span>تنجيد وتجديد المقصورة</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between">
+                        <button onclick="prevCard()" class="text-xs text-slate-400 hover:text-white flex items-center gap-1">
+                            <i class="fa-solid fa-arrow-right"></i>
+                            <span>السابق</span>
+                        </button>
+                        <button onclick="nextCard()" class="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs flex items-center gap-2 transition-all">
+                            <span>الانتقال لنظام الطلب</span>
+                            <i class="fa-solid fa-arrow-left text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- CARD 3: Quick Action & Ordering -->
+                <div id="card-3" class="stack-card next absolute inset-0 w-full glass-panel rounded-3xl p-6 md:p-8 flex flex-col justify-between border border-emerald-500/30 shadow-2xl">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-semibold">
+                                البطاقة 03 • خطوات الطلب المباشر
+                            </span>
+                            <i class="fa-brands fa-whatsapp text-2xl text-emerald-400"></i>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-white">طريقة الطلب السريع والحصول على العرض</h3>
+                        
+                        <ol class="space-y-2.5 text-xs text-slate-300">
+                            <li class="flex items-start gap-2.5 bg-slate-900/60 p-2.5 rounded-xl border border-slate-800">
+                                <span class="w-5 h-5 rounded-full bg-brand-600 text-white flex items-center justify-center shrink-0 font-bold text-[10px]">1</span>
+                                <span>قم بتعبئة بيانات سيارتك والخدمة المطلوبة في النموذج بالأسفل.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5 bg-slate-900/60 p-2.5 rounded-xl border border-slate-800">
+                                <span class="w-5 h-5 rounded-full bg-brand-600 text-white flex items-center justify-center shrink-0 font-bold text-[10px]">2</span>
+                                <span>اضغط على زر "إرسال الطلب عبر الواتساب".</span>
+                            </li>
+                            <li class="flex items-start gap-2.5 bg-slate-900/60 p-2.5 rounded-xl border border-slate-800">
+                                <span class="w-5 h-5 rounded-full bg-brand-600 text-white flex items-center justify-center shrink-0 font-bold text-[10px]">3</span>
+                                <span>سيتواصل معك فريقنا فوراً بأفضل العروض والحلول المناسبة.</span>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-800/80 flex items-center justify-between">
+                        <button onclick="prevCard()" class="text-xs text-slate-400 hover:text-white flex items-center gap-1">
+                            <i class="fa-solid fa-arrow-right"></i>
+                            <span>السابق</span>
+                        </button>
+                        <a href="#order-section" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-2 transition-all shadow-lg shadow-emerald-600/30">
+                            <span>تعبئة النموذج الآن</span>
+                            <i class="fa-solid fa-chevron-down text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Detailed Services Grid Section -->
+        <section class="substack-wide px-4 mt-20">
+            <div class="text-center space-y-2 mb-10">
+                <h2 class="text-2xl font-black text-white">خدمات Fusion Care الشاملة</h2>
+                <p class="text-xs md:text-sm text-slate-400">عناية فائقة تفوق التوقعات بكل جزء في سيارتك</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                
+                <!-- Service 1 -->
+                <div class="glass-panel p-6 rounded-2xl hover:border-brand-500/50 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-brand-950 border border-brand-800/60 flex items-center justify-center text-brand-400 mb-4 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    </div>
+                    <h3 class="font-extrabold text-base text-white mb-2">أفلام حماية الطلاء (PPF)</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        طبقة حماية شفافة ذاتية المعالجة تحمي طلاء سيارتك من الخدوش، الحصى، والعوامل الجوية المختلفة مع الحفاظ على المظهر الأصلي.
+                    </p>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="glass-panel p-6 rounded-2xl hover:border-brand-500/50 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-brand-950 border border-brand-800/60 flex items-center justify-center text-amber-400 mb-4 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                    </div>
+                    <h3 class="font-extrabold text-base text-white mb-2">العازل الحراري</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        تقنيات عزل حراري متقدمة تعزل الأشعة الضارة وتخفض حرارة المقصورة الداخلية لتوفير أقصى درجات الراحة أثناء القيادة.
+                    </p>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="glass-panel p-6 rounded-2xl hover:border-brand-500/50 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-brand-950 border border-brand-800/60 flex items-center justify-center text-purple-400 mb-4 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                    </div>
+                    <h3 class="font-extrabold text-base text-white mb-2">النانو سيراميك</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        طبقة نانو ناعمة توفر لمعاناً كريستالياً عميقاً مع خاصية طرد المياه والأتربة لتسهيل غسيل السيارة والحفاظ على رونقها.
+                    </p>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="glass-panel p-6 rounded-2xl hover:border-brand-500/50 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-brand-950 border border-brand-800/60 flex items-center justify-center text-cyan-400 mb-4 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                    </div>
+                    <h3 class="font-extrabold text-base text-white mb-2">التلميع واستعادة اللمعان</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        إزالة الدوائر والبهتان والخدوش السطحية بأحدث المكائن والمواد لإعادة بريق وكالة سيارتك بلمعان ساطع.
+                    </p>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="glass-panel p-6 rounded-2xl hover:border-brand-500/50 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-brand-950 border border-brand-800/60 flex items-center justify-center text-rose-400 mb-4 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+                    </div>
+                    <h3 class="font-extrabold text-base text-white mb-2">أعمال البوية والرش الاحترافي</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        رش وتجديد طلاء السيارات بأعلى درجات مطابقة الألوان وبأفران رش متطورة تضمن تجانس ومثالية الصبغة.
+                    </p>
+                </div>
+
+                <!-- Service 6 -->
+                <div class="glass-panel p-6 rounded-2xl hover:border-brand-500/50 transition-all group">
+                    <div class="w-12 h-12 rounded-xl bg-brand-950 border border-brand-800/60 flex items-center justify-center text-emerald-400 mb-4 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                    </div>
+                    <h3 class="font-extrabold text-base text-white mb-2">تنجيد وتجديد المقصورة</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        تجديد وتنجيد المقاعد والأبواب والأرضيات بأفخر أنواع الجلد مع الاهتمام بجميع التفاصيل والديكورات الداخلية.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Interactive WhatsApp Request Builder -->
+        <section id="order-section" class="substack-container mt-20 pt-8 scroll-mt-20">
+            <div class="glass-panel rounded-3xl p-6 md:p-10 border border-brand-500/30 relative overflow-hidden shadow-2xl">
+                
+                <!-- Background Accent Blur -->
+                <div class="absolute top-0 left-0 w-48 h-48 bg-brand-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="relative z-10 space-y-6">
+                    <div class="border-b border-slate-800 pb-5">
+                        <span class="text-xs font-bold text-brand-400 tracking-wider uppercase">خدمة سريعة ومخصصة</span>
+                        <h2 class="text-2xl font-black text-white mt-1">طلب خدمة فورية عبر الواتساب</h2>
+                        <p class="text-xs text-slate-400 mt-1">
+                            لخدمتك بشكل أسرع، يرجى تعبئة البيانات التالية وسيقوم فريقنا بالرد عليك فوراً وتقديم أفضل العروض.
+                        </p>
+                    </div>
+
+                    <form id="car-form" onsubmit="sendToWhatsApp(event)" class="space-y-5">
+                        
+                        <!-- Inputs Grid -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <!-- Car Type -->
+                            <div class="space-y-1.5">
+                                <label class="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-car text-brand-400"></i>
+                                    <span>نوع السيارة</span>
+                                </label>
+                                <input type="text" id="car-brand" required placeholder="مثال: لكزس / مرسيدس" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-brand-500 transition-colors">
+                            </div>
+
+                            <!-- Car Color -->
+                            <div class="space-y-1.5">
+                                <label class="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-palette text-brand-400"></i>
+                                    <span>اللون</span>
+                                </label>
+                                <input type="text" id="car-color" required placeholder="مثال: أسود ميتاليك" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-brand-500 transition-colors">
+                            </div>
+
+                            <!-- Car Model -->
+                            <div class="space-y-1.5">
+                                <label class="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                                    <i class="fa-solid fa-calendar-days text-brand-400"></i>
+                                    <span>الموديل (السنة)</span>
+                                </label>
+                                <input type="text" id="car-model" required placeholder="مثال: 2024" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-brand-500 transition-colors">
+                            </div>
+                        </div>
+
+                        <!-- Service Select (Multi Checkboxes) -->
+                        <div class="space-y-2 pt-2">
+                            <label class="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                                <i class="fa-solid fa-list-check text-brand-400"></i>
+                                <span>الخدمة المطلوبة (يمكنك اختيار أكثر من خدمة)</span>
+                            </label>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                                <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/80 border border-slate-800 cursor-pointer hover:border-brand-500/50 transition-colors">
+                                    <input type="checkbox" name="services" value="أفلام حماية الطلاء (PPF)" class="w-4 h-4 rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800">
+                                    <span class="text-xs font-medium text-slate-200">أفلام حماية الطلاء (PPF)</span>
+                                </label>
+
+                                <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/80 border border-slate-800 cursor-pointer hover:border-brand-500/50 transition-colors">
+                                    <input type="checkbox" name="services" value="العازل الحراري" class="w-4 h-4 rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800">
+                                    <span class="text-xs font-medium text-slate-200">العازل الحراري</span>
+                                </label>
+
+                                <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/80 border border-slate-800 cursor-pointer hover:border-brand-500/50 transition-colors">
+                                    <input type="checkbox" name="services" value="النانو سيراميك" class="w-4 h-4 rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800">
+                                    <span class="text-xs font-medium text-slate-200">النانو سيراميك</span>
+                                </label>
+
+                                <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/80 border border-slate-800 cursor-pointer hover:border-brand-500/50 transition-colors">
+                                    <input type="checkbox" name="services" value="التلميع واستعادة اللمعان" class="w-4 h-4 rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800">
+                                    <span class="text-xs font-medium text-slate-200">التلميع واستعادة اللمعان</span>
+                                </label>
+
+                                <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/80 border border-slate-800 cursor-pointer hover:border-brand-500/50 transition-colors">
+                                    <input type="checkbox" name="services" value="أعمال البوية والرش الاحترافي" class="w-4 h-4 rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800">
+                                    <span class="text-xs font-medium text-slate-200">أعمال البوية والرش الاحترافي</span>
+                                </label>
+
+                                <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/80 border border-slate-800 cursor-pointer hover:border-brand-500/50 transition-colors">
+                                    <input type="checkbox" name="services" value="تنجيد وتجديد المقصورة الداخلية" class="w-4 h-4 rounded border-slate-700 text-brand-600 focus:ring-brand-500 bg-slate-800">
+                                    <span class="text-xs font-medium text-slate-200">تنجيد وتجديد المقصورة الداخلية</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Live Message Preview Box -->
+                        <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800/80 space-y-1 text-xs">
+                            <span class="text-slate-500 font-semibold block text-[11px]">معاينة الرسالة المرسلة:</span>
+                            <p id="message-preview" class="text-slate-300 font-mono leading-relaxed dir-rtl text-xs">
+                                مرحباً Fusion Care 👋 أود طلب خدمة...
+                            </p>
+                        </div>
+
+                        <!-- Action Submit Button -->
+                        <button type="submit" class="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-extrabold text-sm flex items-center justify-center gap-2.5 shadow-xl shadow-emerald-950/50 transition-all active:scale-95">
+                            <i class="fa-brands fa-whatsapp text-xl"></i>
+                            <span>إرسال الطلب المباشر عبر الواتساب</span>
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Article-Style Quality Assurance Section (Substack Layout) -->
+        <article class="substack-container mt-20 space-y-6 border-t border-slate-800/80 pt-12">
+            <h2 class="text-xl md:text-2xl font-black text-white leading-snug">
+                التزامنا بالتميّز والجودة في Fusion Care
+            </h2>
+            <div class="text-slate-300 text-sm leading-loose space-y-4 font-normal">
+                <p>
+                    في <strong>فيوجن كير (Fusion Care)</strong>، نؤمن بأن السيارة ليست مجرد وسيلة نقل، بل تحفة هندسية تعكس ذوق صاحبها. لذلك صممنا بيئة عمل خالية من الأتربة مزودة بأحدث التكنولوجيا لضمان أفضل تطبيق لأفلام الحماية والنانو سيراميك.
+                </p>
+                <blockquote class="border-r-4 border-brand-500 pr-4 py-1 text-slate-200 italic font-medium bg-brand-950/30 rounded-l-xl">
+                    "هدفنا ليس فقط تقديم خدمة، بل إعادة رونق وكالة سيارتك وتوفير حماية تحافظ على قيمتها لسنوات طويلة."
+                </blockquote>
+                <p>
+                    يقدم فريقنا الاستشارة الفنية المجانية قبل بدء العمل لمساعدتك في اختيار الباقة والحلول الأنسب لاحتياجاتك ونمط قيادتك.
+                </p>
+            </div>
+        </article>
+
+    </main>
+
+    <!-- Minimalist Footer -->
+    <footer class="border-t border-slate-800/80 mt-20 py-10 bg-slate-950">
+        <div class="substack-wide px-4 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 p-1 flex items-center justify-center">
+                    <svg class="w-full h-full" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M 40 40 L 40 25 L 75 25 L 100 48 L 125 25 L 160 25 L 160 40 L 160 100 C 160 145, 100 180, 100 180 C 100 180, 40 145, 40 100 Z" fill="#2563eb" />
+                        <path d="M 48 44 L 48 33 L 73 33 L 100 56 L 127 33 L 152 33 L 152 44 L 152 98 C 152 138, 100 170, 100 170 C 100 170, 48 138, 48 98 Z" fill="#0b1329" />
+                        <path d="M 15 110 C 25 110, 35 108, 48 106 C 58 104, 68 96, 78 88 C 88 80, 105 76, 122 81 C 135 85, 148 94, 160 100 L 190 116 L 172 126 L 30 126 Z" fill="#cbd5e1" />
+                    </svg>
+                </div>
+                <div>
+                    <span class="font-extrabold text-sm text-white block">Fusion Care</span>
+                    <span class="text-[11px] text-slate-500">جميع الحقوق محفوظة © 2026</span>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-6 text-xs text-slate-400">
+                <a href="#order-section" class="hover:text-brand-400 transition-colors">طلب خدمة</a>
+                <a href="#" onclick="playDeepEngineSound()" class="hover:text-brand-400 transition-colors">صوت المحرك</a>
+                <a href="https://wa.me/" target="_blank" class="hover:text-emerald-400 transition-colors flex items-center gap-1">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <span>تواصل معنا</span>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Audio Context Engine Sound Generator (Compatible with iOS Safari / iPhone)
+        let audioCtx = null;
+
+        // Force scroll to top as early as possible
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+
+        function playDeepEngineSound() {
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (!audioCtx) {
+                    audioCtx = new AudioContext();
+                }
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+
+                const now = audioCtx.currentTime;
+
+                // Engine Oscillators (Simulating Deep V8 Exhaust & Idle Rev)
+                const osc1 = audioCtx.createOscillator();
+                const osc2 = audioCtx.createOscillator();
+                const oscSub = audioCtx.createOscillator();
+                const mainGain = audioCtx.createGain();
+                const filter = audioCtx.createBiquadFilter();
+
+                // Sawtooth & Triangle waveforms for aggressive rumble
+                osc1.type = 'sawtooth';
+                osc2.type = 'sawtooth';
+                oscSub.type = 'triangle';
+
+                // Pitch Ramp (Rev sound then settle into deep rumble)
+                osc1.frequency.setValueAtTime(40, now);
+                osc1.frequency.exponentialRampToValueAtTime(180, now + 0.4); // Rev up
+                osc1.frequency.exponentialRampToValueAtTime(50, now + 1.6);  // Deep V8 Idle
+
+                osc2.frequency.setValueAtTime(80, now);
+                osc2.frequency.exponentialRampToValueAtTime(360, now + 0.4);
+                osc2.frequency.exponentialRampToValueAtTime(100, now + 1.6);
+
+                oscSub.frequency.setValueAtTime(25, now);
+                oscSub.frequency.exponentialRampToValueAtTime(90, now + 0.4);
+                oscSub.frequency.exponentialRampToValueAtTime(30, now + 1.6);
+
+                // Lowpass filter to create deep muffled bass exhaust sound
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(220, now);
+                filter.frequency.exponentialRampToValueAtTime(900, now + 0.4);
+                filter.frequency.exponentialRampToValueAtTime(280, now + 1.6);
+
+                // LFO for V8 Exhaust Pulse
+                const lfo = audioCtx.createOscillator();
+                const lfoGain = audioCtx.createGain();
+                lfo.frequency.value = 12; // Pulse rate
+                lfoGain.gain.value = 15;
+                lfo.connect(osc1.frequency);
+                lfo.start(now);
+
+                // Master Gain Envelope
+                mainGain.gain.setValueAtTime(0.001, now);
+                mainGain.gain.linearRampToValueAtTime(0.6, now + 0.3);
+                mainGain.gain.exponentialRampToValueAtTime(0.25, now + 1.6);
+                mainGain.gain.exponentialRampToValueAtTime(0.001, now + 2.8);
+
+                // Connect nodes
+                osc1.connect(filter);
+                osc2.connect(filter);
+                oscSub.connect(filter);
+                filter.connect(mainGain);
+                mainGain.connect(audioCtx.destination);
+
+                // Play
+                osc1.start(now);
+                osc2.start(now);
+                oscSub.start(now);
+
+                // Stop after duration
+                const duration = 2.9;
+                osc1.stop(now + duration);
+                osc2.stop(now + duration);
+                oscSub.stop(now + duration);
+                lfo.stop(now + duration);
+
+                // Show visual sound indicator
+                const indicator = document.getElementById('sound-indicator');
+                if (indicator) {
+                    indicator.classList.remove('hidden');
+                    indicator.classList.add('flex');
+                    setTimeout(() => {
+                        indicator.classList.add('hidden');
+                        indicator.classList.remove('flex');
+                    }, 3000);
+                }
+
+            } catch (err) {
+                console.log("Web Audio API not supported or blocked", err);
+            }
+        }
+
+        // Start App on button click
+        function startAppWithEngineSound() {
+            playDeepEngineSound();
+            window.scrollTo(0, 0);
+            const overlay = document.getElementById('intro-overlay');
+            if (overlay) {
+                overlay.classList.add('opacity-0', 'pointer-events-none', 'scale-105');
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                    window.scrollTo(0, 0);
+                }, 700);
+            }
+        }
+
+        // Stack Card Logic
+        let currentCard = 1;
+        const totalCards = 3;
+
+        function updateStackCards() {
+            for (let i = 1; i <= totalCards; i++) {
+                const card = document.getElementById(`card-${i}`);
+                if (!card) continue;
+
+                card.classList.remove('active', 'prev', 'next');
+
+                if (i === currentCard) {
+                    card.classList.add('active');
+                } else if (i < currentCard) {
+                    card.classList.add('prev');
+                } else {
+                    card.classList.add('next');
+                }
+            }
+
+            // Update step indicator
+            const indicator = document.getElementById('card-step-indicator');
+            if (indicator) indicator.textContent = `${currentCard} / ${totalCards}`;
+
+            // Buttons enable/disable
+            const prevBtn = document.getElementById('btn-prev-card');
+            const nextBtn = document.getElementById('btn-next-card');
+
+            if (prevBtn) prevBtn.disabled = (currentCard === 1);
+            if (nextBtn) nextBtn.disabled = (currentCard === totalCards);
+        }
+
+        function nextCard() {
+            if (currentCard < totalCards) {
+                currentCard++;
+                updateStackCards();
+            }
+        }
+
+        function prevCard() {
+            if (currentCard > 1) {
+                currentCard--;
+                updateStackCards();
+            }
+        }
+
+        // WhatsApp Form Auto-Preview and Builder
+        function updateMessagePreview() {
+            const brand = document.getElementById('car-brand').value.trim() || '[نوع السيارة]';
+            const color = document.getElementById('car-color').value.trim() || '[اللون]';
+            const model = document.getElementById('car-model').value.trim() || '[الموديل]';
+
+            const checkboxes = document.querySelectorAll('input[name="services"]:checked');
+            let selectedServices = [];
+            checkboxes.forEach(cb => selectedServices.push(cb.value));
+
+            const servicesText = selectedServices.length > 0 ? selectedServices.join('، ') : '[الخدمة المطلوبة]';
+
+            const formattedMsg = `مرحباً Fusion Care 👋\nأود الاستفسار وطلب خدمة لسيارتي:\n• نوع السيارة: ${brand}\n• اللون: ${color}\n• الموديل: ${model}\n• الخدمة المطلوبة: ${servicesText}\n\nيرجى تزويدي بأفضل العروض المتاحة.`;
+
+            const previewElem = document.getElementById('message-preview');
+            if (previewElem) {
+                previewElem.innerText = formattedMsg;
+            }
+
+            return formattedMsg;
+        }
+
+        // Listen for input changes to update preview live
+        document.addEventListener('DOMContentLoaded', () => {
+            window.scrollTo(0, 0);
+
+            const inputs = document.querySelectorAll('#car-brand, #car-color, #car-model');
+            inputs.forEach(input => input.addEventListener('input', updateMessagePreview));
+
+            const checkboxes = document.querySelectorAll('input[name="services"]');
+            checkboxes.forEach(cb => cb.addEventListener('change', updateMessagePreview));
+
+            updateMessagePreview();
+        });
+
+        // Send to WhatsApp Function
+        function sendToWhatsApp(e) {
+            e.preventDefault();
+            const message = updateMessagePreview();
+            
+            // Encode WhatsApp Text
+            const encodedMsg = encodeURIComponent(message);
+            // Replace with your official Fusion Care WhatsApp number if needed (e.g. 966500000000)
+            const whatsappUrl = `https://wa.me/?text=${encodedMsg}`;
+
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
