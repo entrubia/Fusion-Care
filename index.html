@@ -258,13 +258,15 @@
                 مركز متخصص ومُعتمد للعناية الكاملة
             </div>
 
-            <!-- Main Headline -->
-            <h1 class="text-3xl md:text-5xl font-black text-white leading-tight md:leading-tight tracking-tight">
-                حماية فائقة.. فخامة تدوم لسيارتك مع <span class="bg-gradient-to-r from-brand-400 via-blue-300 to-cyan-400 bg-clip-text text-transparent">فيوجن كير</span>
+            <!-- Main Headline - Formatted on 3 lines -->
+            <h1 class="text-3xl md:text-5xl font-black text-white leading-tight md:leading-tight tracking-tight space-y-2">
+                <span class="block">حماية فائقة.. فخامة</span>
+                <span class="block text-slate-100">تدوم لسيارتك</span>
+                <span class="block"><span class="text-white">مع </span><span class="bg-gradient-to-r from-brand-400 via-blue-300 to-cyan-400 bg-clip-text text-transparent">فيوجن كير</span></span>
             </h1>
 
             <!-- Subheading Medium style -->
-            <p class="text-slate-400 text-sm md:text-base leading-relaxed max-w-xl mx-auto font-normal">
+            <p class="text-slate-400 text-xs md:text-base leading-relaxed max-w-xl mx-auto font-normal px-2">
                 نقدم أحدث الحلول المتكاملة لحماية وتجديد المركبات بأعلى معايير الجودة العالمية، من أفلام PPF والحراري إلى التنجيد الاحترافي.
             </p>
 
@@ -287,7 +289,7 @@
                 <div>
                     <h2 class="text-lg font-bold text-white flex items-center gap-2">
                         <i class="fa-solid fa-layer-group text-brand-500"></i>
-                        دليل الخدمات والخطوات المتراكمة
+                        دليل الخدمات
                     </h2>
                     <p class="text-xs text-slate-400 mt-0.5">تصفح البطاقات للوصول المباشر لطلبك</p>
                 </div>
@@ -304,10 +306,10 @@
             </div>
 
             <!-- Stack Cards Container -->
-            <div class="relative min-h-[480px] w-full">
+            <div class="relative min-h-[520px] sm:min-h-[460px] w-full">
                 
                 <!-- CARD 1: Hook & Vision -->
-                <div id="card-1" class="stack-card active absolute inset-0 w-full glass-panel rounded-3xl p-6 md:p-8 flex flex-col justify-between border border-brand-500/30 shadow-2xl shadow-brand-950/50">
+                <div id="card-1" class="stack-card active absolute inset-0 w-full glass-panel rounded-3xl p-5 md:p-8 flex flex-col justify-between border border-brand-500/30 shadow-2xl shadow-brand-950/50">
                     <div class="space-y-4">
                         <div class="flex items-center justify-between">
                             <span class="px-3 py-1 rounded-full bg-brand-500/20 text-brand-300 text-xs font-semibold">
@@ -315,7 +317,7 @@
                             </span>
                             <i class="fa-solid fa-gem text-xl text-brand-400"></i>
                         </div>
-                        <h3 class="text-xl md:text-2xl font-extrabold text-white leading-snug">
+                        <h3 class="text-lg md:text-2xl font-extrabold text-white leading-snug">
                             لماذا يختار أصحاب السيارات الفارهة Fusion Care؟
                         </h3>
                         <p class="text-slate-300 text-xs md:text-sm leading-relaxed">
@@ -323,19 +325,18 @@
                         </p>
                         <div class="grid grid-cols-2 gap-3 pt-2">
                             <div class="bg-slate-900/90 border border-slate-800 p-3 rounded-2xl">
-                                <div class="text-brand-400 font-bold text-lg">100%</div>
-                                <div class="text-[11px] text-slate-400">حماية من الخدوش والعوامل</div>
+                                <div class="text-brand-400 font-bold text-base sm:text-lg">100%</div>
+                                <div class="text-[10px] sm:text-[11px] text-slate-400">حماية من الخدوش والعوامل</div>
                             </div>
                             <div class="bg-slate-900/90 border border-slate-800 p-3 rounded-2xl">
-                                <div class="text-cyan-400 font-bold text-lg">ضمان معتمد</div>
-                                <div class="text-[11px] text-slate-400">على كل الأعمال والخدمات</div>
+                                <div class="text-cyan-400 font-bold text-base sm:text-lg">ضمان معتمد</div>
+                                <div class="text-[10px] sm:text-[11px] text-slate-400">على كل الأعمال والخدمات</div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="pt-6 border-t border-slate-800/80 flex items-center justify-between">
-                        <span class="text-xs text-slate-400">اسحب أو انقر للانتقال للخدمات</span>
-                        <button onclick="nextCard()" class="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs flex items-center gap-2 transition-all">
+                    <div class="pt-4 border-t border-slate-800/80 flex items-center justify-end">
+                        <button onclick="nextCard()" class="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs flex items-center gap-2 transition-all shadow-lg shadow-brand-600/20">
                             <span>استعراض الخدمات</span>
                             <i class="fa-solid fa-arrow-left text-xs"></i>
                         </button>
@@ -621,21 +622,13 @@
         </section>
 
         <!-- Article-Style Quality Assurance Section (Substack Layout) -->
-        <article class="substack-container mt-20 space-y-6 border-t border-slate-800/80 pt-12">
-            <h2 class="text-xl md:text-2xl font-black text-white leading-snug">
-                التزامنا بالتميّز والجودة في Fusion Care
+        <article class="substack-container mt-16 space-y-4 border-t border-slate-800/80 pt-10">
+            <h2 class="text-lg md:text-xl font-bold text-white">
+                التزامنا بالتميّز والجودة
             </h2>
-            <div class="text-slate-300 text-sm leading-loose space-y-4 font-normal">
-                <p>
-                    في <strong>فيوجن كير (Fusion Care)</strong>، نؤمن بأن السيارة ليست مجرد وسيلة نقل، بل تحفة هندسية تعكس ذوق صاحبها. لذلك صممنا بيئة عمل خالية من الأتربة مزودة بأحدث التكنولوجيا لضمان أفضل تطبيق لأفلام الحماية والنانو سيراميك.
-                </p>
-                <blockquote class="border-r-4 border-brand-500 pr-4 py-1 text-slate-200 italic font-medium bg-brand-950/30 rounded-l-xl">
-                    "هدفنا ليس فقط تقديم خدمة، بل إعادة رونق وكالة سيارتك وتوفير حماية تحافظ على قيمتها لسنوات طويلة."
-                </blockquote>
-                <p>
-                    يقدم فريقنا الاستشارة الفنية المجانية قبل بدء العمل لمساعدتك في اختيار الباقة والحلول الأنسب لاحتياجاتك ونمط قيادتك.
-                </p>
-            </div>
+            <p class="text-slate-300 text-xs md:text-sm leading-relaxed font-normal">
+                في <strong class="text-brand-400">Fusion Care</strong>، نوفر بيئة خالية من الأتربة مع أحدث التقنيات لنضمن إرجاع بريق سيارتك وحمايتها بأعلى معايير الفخامة والضمان المعتمد.
+            </p>
         </article>
 
     </main>
